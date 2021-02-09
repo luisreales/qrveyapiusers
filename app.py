@@ -11,9 +11,20 @@ from pdf import generate_pdf_new
 
 
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder='templates')
 app.config["MONGO_URI"] = "mongodb+srv://dbUser:72335224*@cluster0.azcfn.mongodb.net/qrvey?retryWrites=true&w=majority"
 mongo = PyMongo(app)
+
+# Endpoint: /
+# Description: Return resume of the test
+# Method: Post
+# Developer Created: Luis R
+@app.route('/', methods=['GET'])
+def get_resume():
+    name = 'Luis Alfonso Reales Guerra'
+    resp = make_response(render_template('template.html',value=name))
+    resp.mimetype = 'text/html'
+    return resp
 
 
 # Endpoint: /users
